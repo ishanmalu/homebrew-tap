@@ -1,12 +1,12 @@
 cask "perch" do
-  version "1.4.0"
-  sha256 "a11980a4f526f591412dfb6001333140971baa8a0e51e0355b24e82a03f71d94"
+  version "1.6.0"
+  sha256 "85b16afd3e3d6174040d4dd72ce8fc1aa87e1d3e42979b600667cd326b1b151f"
 
-  url "https://github.com/ishanmalu/perch/releases/download/v#{version}/Perch-#{version}.dmg",
-      verified: "github.com/ishanmalu/perch/"
+  url "https://github.com/ishanmalu/Perch/releases/download/v#{version}/Perch-#{version}.dmg",
+      verified: "github.com/ishanmalu/Perch/"
   name "Perch"
   desc "Menu bar utility for window tiling, clipboard history, and system tools"
-  homepage "https://github.com/ishanmalu/perch"
+  homepage "https://github.com/ishanmalu/Perch"
 
   livecheck do
     url :url
@@ -27,17 +27,18 @@ cask "perch" do
   ]
 
   caveats <<~EOS
-    Perch is signed ad-hoc rather than with a paid Apple Developer certificate,
-    so macOS quarantines it on first launch. Either install with:
+      Perch is signed with its own certificate but not notarized, which needs a
+      paid Apple Developer account. macOS therefore quarantines the download and
+      refuses the first launch. Clear the flag:
 
-      brew install --cask --no-quarantine perch
+        xattr -dr com.apple.quarantine "#{appdir}/Perch.app"
 
-    or clear the flag afterwards:
+      Without a terminal: open Perch, dismiss the warning, then System Settings ->
+      Privacy & Security -> Open Anyway. On macOS 15 and later, Control-clicking
+      the app no longer offers this.
 
-      xattr -dr com.apple.quarantine "#{appdir}/Perch.app"
-
-    Perch also needs Accessibility access for window management, the window
-    switcher, and keyboard cleaning:
-    System Settings -> Privacy & Security -> Accessibility.
-  EOS
+      Perch also needs Accessibility access for window management, the window
+      switcher, and the cleaning modes:
+      System Settings -> Privacy & Security -> Accessibility.
+    EOS
 end
